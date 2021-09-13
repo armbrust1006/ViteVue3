@@ -1,13 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue';
 
-defineProps<{ msg: string }>()
+defineProps<{ msg: string }>();
 
-const count = ref(0)
+const count = ref(1);
+
+// ref == reactive 두 API는 같음!
+// 무조건 변수에 지정 안하면 사용 못함
+const state = ref({
+  list : ['00', '01', '02']
+});
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
+
+  <div>
+    <!-- 정상 작동 -->
+    <a v-for="(a,i) in state.list" :key="i">{{ a }}</a>
+    <!-- 작동 안됨 -->
+    <a v-for="(a,i) in list" :key="i">{{ a }}</a>
+  </div>
 
   <p>
     Recommended IDE setup:
