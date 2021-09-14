@@ -5,11 +5,31 @@ defineProps<{ msg: string }>();
 
 const count = ref(1);
 
-// ref == reactive 두 API는 같음!
-// 무조건 변수에 지정 안하면 사용 못함
+/* 
+  ref == reactive 두 API는 같음! <-- 비슷하지만 자료형에 따라 사용법이 다름
+  ref 는 기본형을 사용할 때 이용
+  ractive 는 참조형을 사용할 때 이용
+  무조건 변수에 지정 안하면 사용 못함
+*/
+// ref 를 참조형으로 사용도 가능함. 하지만 '.value'를 통해서 처리하게 됨!
 const state = ref({
   list : ['00', '01', '02']
 });
+
+const updateState = () => {
+  state.value.list = ['10', '11'];
+};
+/*
+// 작동 안함!!!
+const updateState = () => {
+  state.list = ['10', '11'];
+};
+*/
+
+// 작동 안함!!!
+const name = reactive('front');
+
+
 </script>
 
 <template>
@@ -20,6 +40,7 @@ const state = ref({
     <a v-for="(a,i) in state.list" :key="i">{{ a }}</a>
     <!-- 작동 안됨 -->
     <a v-for="(a,i) in list" :key="i">{{ a }}</a>
+    <button @click="updateState">click</button>
   </div>
 
   <p>
